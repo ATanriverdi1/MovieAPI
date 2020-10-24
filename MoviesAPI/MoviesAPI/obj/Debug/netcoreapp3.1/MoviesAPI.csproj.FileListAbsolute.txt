@@ -38,9 +38,6 @@ D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.Dep
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csprojAssemblyReference.cache
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.AssemblyInfoInputs.cache
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.AssemblyInfo.cs
-D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CoreCompileInputs.cache
-D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cs
-D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cache
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.RazorTargetAssemblyInfo.cache
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CopyComplete
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\staticwebassets\MoviesAPI.StaticWebAssets.Manifest.cache
@@ -48,3 +45,14 @@ D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\staticwebassets\Movi
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.dll
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.pdb
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.genruntimeconfig.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CoreCompileInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cs
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cache
