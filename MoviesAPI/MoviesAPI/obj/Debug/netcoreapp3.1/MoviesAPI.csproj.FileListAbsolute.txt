@@ -1,0 +1,50 @@
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\appsettings.json
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csprojAssemblyReference.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.AssemblyInfoInputs.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.AssemblyInfo.cs
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.RazorTargetAssemblyInfo.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\staticwebassets\MoviesAPI.StaticWebAssets.Manifest.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\staticwebassets\MoviesAPI.StaticWebAssets.xml
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.exe
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.deps.json
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.runtimeconfig.json
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.runtimeconfig.dev.json
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.dll
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.pdb
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.dll
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.pdb
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.genruntimeconfig.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.dll
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CoreCompileInputs.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cs
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cache
+D:\MyOffice\vs19 project\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CopyComplete
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\appsettings.json
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.exe
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.deps.json
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.runtimeconfig.json
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.runtimeconfig.dev.json
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\MoviesAPI.pdb
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csprojAssemblyReference.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.AssemblyInfoInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.AssemblyInfo.cs
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CoreCompileInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cs
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.RazorTargetAssemblyInfo.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CopyComplete
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\staticwebassets\MoviesAPI.StaticWebAssets.Manifest.cache
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\staticwebassets\MoviesAPI.StaticWebAssets.xml
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.pdb
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.genruntimeconfig.cache
