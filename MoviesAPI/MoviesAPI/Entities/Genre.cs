@@ -12,14 +12,5 @@ namespace MoviesAPI.Entities
 
         //[Required]
         public string Name { get; set; }
-
-        //[Range(18,99)]
-        public int Age { get; set; }
-
-        //[CreditCard]
-        public string CreditCard { get; set; }
-
-        [Url]
-        public string Url { get; set; }
     }
 }

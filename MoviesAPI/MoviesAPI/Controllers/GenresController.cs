@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MoviesAPI.DTOs;
 using MoviesAPI.Entities;
-using MoviesAPI.Services;
+using MoviesAPI.Entities.EntityContext;
 using MoviesAPI.Validators;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MoviesAPI.Controllers
@@ -17,64 +16,91 @@ namespace MoviesAPI.Controllers
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class GenresController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly ApplicationDbContext _context;
         private readonly GenreValidator _validationRules;
         private readonly ILogger<GenresController> _logger;
+        private readonly IMapper _mapper;
 
-        public GenresController(IRepository repository,
+        public GenresController(ApplicationDbContext context,
                                 GenreValidator validationRules,
-                                ILogger<GenresController> logger)
+                                ILogger<GenresController> logger,
+                                IMapper mapper)
         {
-            this._repository = repository;
+            this._context = context;
             this._validationRules = validationRules;
             this._logger = logger;
+            this._mapper = mapper;
         }
 
         [HttpGet] // api/genres
-        [HttpGet("list")] // api/genres/list
-        [HttpGet("/allgenres")]
         //[ResponseCache(Duration = 60)]
-        public async Task<ActionResult<List<Genre>>> Get()
+        public async Task<ActionResult<List<GenreDTO>>> Get()
         {
-            _logger.LogDebug("Get all genres");
-            return await _repository.GetAllGenres();
+            var genre = await _context.Genres.AsNoTracking().ToListAsync();
+            var genreDTOs = _mapper.Map<List<GenreDTO>>(genre);
+            
+            return genreDTOs;
         }
 
-        [HttpGet("{Id:int}")]
-        public ActionResult<Genre> Get(int id, string param2)
+        [HttpGet("{Id:int}", Name = "getGenre")]
+        public async Task<ActionResult<GenreDTO>> Get(int id)
         {
-            var genre = _repository.GetGenreById(id);
+            var genre = await _context.Genres.FirstOrDefaultAsync(x => x.Id == id);
 
             if (genre == null)
             {
-                _logger.LogWarning("{id} not found");
                 return NotFound();
             }
 
-            return genre;
+            var genreDTO = _mapper.Map<GenreDTO>(genre);
+
+            return genreDTO;
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] Genre genre) 
+        public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreation)
         {
-            var validateResult = _validationRules.Validate(genre);
-            if (!validateResult.IsValid)
+            var validateResult = _validationRules.Validate(genreCreation);
+            
+            if (validateResult.IsValid)
+            {
+                var genre = _mapper.Map<Genre>(genreCreation);
+                _context.Add(genre);
+                await _context.SaveChangesAsync();
+                var genreDTO = _mapper.Map<GenreDTO>(genre);
+                return new CreatedAtRouteResult("getGenre", new { Id = genreDTO.Id }, genreDTO);
+            }
+            return NotFound();
+        }
+
+        [HttpPut("{Id:int}")]
+        public async Task<ActionResult> Put(int id, [FromBody] GenreCreationDTO genreCreation)
+        {
+            var validateResult = _validationRules.Validate(genreCreation);
+            if (validateResult.IsValid)
+            {
+                var genre = _mapper.Map<Genre>(genreCreation);
+                genre.Id = id;
+                _context.Entry(genre).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return Ok("modifield success");
+            }
+
+            return NotFound();
+        }
+
+        [HttpDelete("{Id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var exists = await _context.Genres.AnyAsync(x => x.Id == id);
+            if (!exists)
             {
                 return NotFound();
             }
-            return Ok(); 
-        }
-        
-        [HttpPut]
-        public ActionResult Put([FromBody] Genre genre) 
-        {
-            return NoContent();
-        }
+            _context.Remove(new Genre() { Id = id });
+            await _context.SaveChangesAsync();
 
-        [HttpDelete]
-        public ActionResult Delete([FromBody] Genre genre) 
-        {
-            return NoContent();
+            return Ok("Genre is delete");
         }
     }
 }

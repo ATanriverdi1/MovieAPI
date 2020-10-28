@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,11 +10,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MoviesAPI.DTOs;
+using MoviesAPI.DTOs.Person;
 using MoviesAPI.Entities;
+using MoviesAPI.Entities.EntityContext;
 using MoviesAPI.Services;
 using MoviesAPI.Validators;
 
@@ -33,15 +38,22 @@ namespace MoviesAPI
         {
             //services.AddResponseCaching();
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-            
+            //services.AddTransient<IHostedService, WriteToFileHostedService>();
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllers().AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             }).AddXmlDataContractSerializerFormatters();
 
-            services.AddSingleton<IRepository, InMemoryRepository>();
-            services.AddTransient<IValidator<Genre>, GenreValidator>();
-            services.AddTransient<IHostedService, WriteToFileHostedService>();
+            
+            services.AddTransient<IValidator<GenreCreationDTO>, GenreValidator>();
+            services.AddTransient<IValidator<PersonCreationDTO>, PersonValidator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +64,12 @@ namespace MoviesAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            //app.UseResponseCaching();
+            //app.UseAuthentication();
+
             app.UseHttpsRedirection();
 
-            //app.UseResponseCaching();
-
             app.UseRouting();
-
-            //app.UseAuthentication();
 
             app.UseAuthorization();
 
