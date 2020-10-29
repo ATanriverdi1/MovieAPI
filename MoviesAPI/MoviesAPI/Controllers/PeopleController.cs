@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesAPI.DTOs.Person;
 using MoviesAPI.Entities;
 using MoviesAPI.Entities.EntityContext;
+using MoviesAPI.Services;
 using MoviesAPI.Validators;
 
 namespace MoviesAPI.Controllers
@@ -20,18 +23,22 @@ namespace MoviesAPI.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly PersonValidator _validationRules;
+        private readonly IFileStorageService _fileStorage;
+        private readonly string containerName = "people";
 
         public PeopleController(ApplicationDbContext context,
                                 IMapper mapper,
-                                PersonValidator validationRules)
+                                PersonValidator validationRules,
+                                IFileStorageService fileStorage)
         {
             this._context = context;
             this._mapper = mapper;
             this._validationRules = validationRules;
+            this._fileStorage = fileStorage;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PersonDTO>>> Get() 
+        public async Task<ActionResult<List<PersonDTO>>> Get()
         {
             var people = await _context.People.AsNoTracking().ToListAsync();
 
@@ -39,10 +46,10 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpGet("{Id:int}", Name = "getPerson")]
-        public async Task<ActionResult<PersonDTO>> Get(int id) 
+        public async Task<ActionResult<PersonDTO>> Get(int id)
         {
             var person = await _context.People.FirstOrDefaultAsync(x => x.Id == id);
-            
+
             if (person == null)
             {
                 return NotFound();
@@ -52,33 +59,88 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreation) 
+        public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
         {
-            var validateResult = _validationRules.Validate(personCreation);
-            if (validateResult.IsValid)
+            var person = _mapper.Map<Person>(personCreationDTO);
+
+            if (personCreationDTO.Picture != null)
             {
-                var person = _mapper.Map<Person>(personCreation);
-                _context.Add(person);
-                //await _context.SaveChangesAsync();
-                var personDTO = _mapper.Map<PersonDTO>(person);
-                return new CreatedAtRouteResult("getPerson", new { Id = personDTO.Id }, personDTO);
+                using (var memoryStream = new MemoryStream())
+                {
+                    await personCreationDTO.Picture.CopyToAsync(memoryStream);
+                    var content = memoryStream.ToArray();
+                    var extension = Path.GetExtension(personCreationDTO.Picture.FileName);
+                    person.Picture =
+                        await _fileStorage.SaveFile(content, extension, containerName,
+                                                            personCreationDTO.Picture.ContentType);
+                }
             }
-            return NotFound();
+
+            _context.Add(person);
+            await _context.SaveChangesAsync();
+            var personDTO = _mapper.Map<PersonDTO>(person);
+            return new CreatedAtRouteResult("getPerson", new { id = person.Id }, personDTO);
         }
 
         [HttpPut("{Id:int}")]
-        public async Task<ActionResult> Put(int id, [FromBody] PersonCreationDTO personCreation)
+        public async Task<ActionResult> Put(int id, [FromForm] PersonCreationDTO personCreation)
         {
+            var personDb = await _context.People.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (personDb == null) { return NotFound(); }
+
             var validateResult = _validationRules.Validate(personCreation);
             if (validateResult.IsValid)
             {
-                var person = _mapper.Map<Person>(personCreation);
-                person.Id = id;
-                _context.Entry(person).State = EntityState.Modified;
+                personDb = _mapper.Map(personCreation, personDb);
+
+                if (personCreation.Picture != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await personCreation.Picture.CopyToAsync(memoryStream);
+                        var content = memoryStream.ToArray();
+                        var extension = Path.GetExtension(personCreation.Picture.FileName);
+                        personDb.Picture = await _fileStorage.EditFile(content, extension, containerName, personDb.Picture, personCreation.Picture.ContentType);
+                    }
+                }
                 await _context.SaveChangesAsync();
                 return Ok("modifield success");
             }
             return NotFound();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<PersonPatchDTO> patchDocument)
+        {
+            if (patchDocument == null)
+            {
+                return BadRequest();
+            }
+
+            var entityFromDB = await _context.People.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (entityFromDB == null)
+            {
+                return NotFound();
+            }
+
+            var entityDTO = _mapper.Map<PersonPatchDTO>(entityFromDB);
+
+            patchDocument.ApplyTo(entityDTO, ModelState);
+
+            var isValid = TryValidateModel(entityDTO);
+
+            if (!isValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(entityDTO, entityFromDB);
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Modifield success");
         }
 
         [HttpDelete("{Id:int}")]

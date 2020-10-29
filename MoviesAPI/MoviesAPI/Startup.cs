@@ -48,9 +48,10 @@ namespace MoviesAPI
             services.AddControllers().AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-            }).AddXmlDataContractSerializerFormatters();
+            }).AddNewtonsoftJson()
+                .AddXmlDataContractSerializerFormatters();
 
-            
+            services.AddTransient<IFileStorageService, AzureStorageService>();
             services.AddTransient<IValidator<GenreCreationDTO>, GenreValidator>();
             services.AddTransient<IValidator<PersonCreationDTO>, PersonValidator>();
 
