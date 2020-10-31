@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MoviesAPI.DTOs;
 using MoviesAPI.DTOs.Person;
 using MoviesAPI.Entities;
 using MoviesAPI.Entities.EntityContext;
+using MoviesAPI.Helpers;
 using MoviesAPI.Services;
 using MoviesAPI.Validators;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace MoviesAPI.Controllers
 {
@@ -38,10 +37,11 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PersonDTO>>> Get()
+        public async Task<ActionResult<List<PersonDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var people = await _context.People.AsNoTracking().ToListAsync();
-
+            var queryable = _context.People.AsQueryable();
+            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
+            var people = await queryable.Paginate(paginationDTO).ToListAsync();
             return _mapper.Map<List<PersonDTO>>(people);
         }
 

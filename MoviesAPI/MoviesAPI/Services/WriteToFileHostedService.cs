@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,10 +36,10 @@ namespace MoviesAPI.Services
             WriteToFile("Process Ongoing: " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"));
         }
 
-        private void WriteToFile(string message) 
+        private void WriteToFile(string message)
         {
             var path = $@"{_env.ContentRootPath}\wwwroot\{fileName}";
-            using (StreamWriter writer = new StreamWriter(path, append : true))
+            using (StreamWriter writer = new StreamWriter(path, append: true))
             {
                 writer.WriteLine(message);
             }

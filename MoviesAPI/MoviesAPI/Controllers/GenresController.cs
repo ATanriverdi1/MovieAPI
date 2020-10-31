@@ -38,7 +38,7 @@ namespace MoviesAPI.Controllers
         {
             var genre = await _context.Genres.AsNoTracking().ToListAsync();
             var genreDTOs = _mapper.Map<List<GenreDTO>>(genre);
-            
+
             return genreDTOs;
         }
 
@@ -61,7 +61,7 @@ namespace MoviesAPI.Controllers
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreation)
         {
             var validateResult = _validationRules.Validate(genreCreation);
-            
+
             if (validateResult.IsValid)
             {
                 var genre = _mapper.Map<Genre>(genreCreation);
