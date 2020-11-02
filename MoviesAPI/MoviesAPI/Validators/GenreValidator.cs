@@ -3,6 +3,7 @@ using MoviesAPI.DTOs;
 
 namespace MoviesAPI.Validators
 {
+    //FluentValidation
     public class GenreValidator : AbstractValidator<GenreCreationDTO>
     {
         public GenreValidator()

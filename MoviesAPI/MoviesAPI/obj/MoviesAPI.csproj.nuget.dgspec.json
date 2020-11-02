@@ -72,6 +72,10 @@
               "target": "Package",
               "version": "[1.10.9, )"
             },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.2.5, )"
+            },
             "WindowsAzure.Storage": {
               "target": "Package",
               "version": "[9.3.3, )"

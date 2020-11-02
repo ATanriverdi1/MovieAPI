@@ -13,8 +13,6 @@ namespace MoviesAPI.Validators
             RuleFor(x=>x.Summary).NotEmpty().WithMessage("Gerekli Alan")
                                  .Length(1, 300).WithMessage("Min 1 ile Max 300 karaketer arasında olmalıdır");
 
-            RuleFor(x => x.InTheaters).NotEmpty().NotNull().WithMessage("Gerekli alan");
-
         }
     }
 }

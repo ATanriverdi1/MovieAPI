@@ -44,6 +44,7 @@ namespace MoviesAPI
             }).AddNewtonsoftJson()
                 .AddXmlDataContractSerializerFormatters();
 
+            services.AddTransient<IHostedService, MovieInTheatersService>();
             services.AddTransient<IFileStorageService, AzureStorageService>();
             services.AddTransient<IValidator<GenreCreationDTO>, GenreValidator>();
             services.AddTransient<IValidator<PersonCreationDTO>, PersonValidator>();
