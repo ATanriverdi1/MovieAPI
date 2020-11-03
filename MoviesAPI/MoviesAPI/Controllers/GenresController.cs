@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -34,6 +36,7 @@ namespace MoviesAPI.Controllers
 
         [HttpGet] // api/genres
         //[ResponseCache(Duration = 60)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<List<GenreDTO>>> Get()
         {
             var genre = await _context.Genres.AsNoTracking().ToListAsync();

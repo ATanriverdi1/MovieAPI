@@ -1,12 +1,15 @@
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using MoviesAPI.DTOs;
 using MoviesAPI.DTOs.Movie;
 using MoviesAPI.DTOs.Person;
@@ -14,6 +17,8 @@ using MoviesAPI.Entities;
 using MoviesAPI.Entities.EntityContext;
 using MoviesAPI.Services;
 using MoviesAPI.Validators;
+using System;
+using System.Text;
 
 namespace MoviesAPI
 {
@@ -44,7 +49,24 @@ namespace MoviesAPI
             }).AddNewtonsoftJson()
                 .AddXmlDataContractSerializerFormatters();
 
-            services.AddTransient<IHostedService, MovieInTheatersService>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["jwt:key"])),
+                        ClockSkew = TimeSpan.Zero
+                    });
+            
+            //services.AddTransient<IHostedService, MovieInTheatersService>();
             services.AddTransient<IFileStorageService, AzureStorageService>();
             services.AddTransient<IValidator<GenreCreationDTO>, GenreValidator>();
             services.AddTransient<IValidator<PersonCreationDTO>, PersonValidator>();
@@ -60,11 +82,13 @@ namespace MoviesAPI
             }
 
             //app.UseResponseCaching();
-            //app.UseAuthentication();
+            
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
