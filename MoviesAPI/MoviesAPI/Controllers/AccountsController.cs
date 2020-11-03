@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MoviesAPI.DTOs;
 using MoviesAPI.DTOs.Identity;
+using MoviesAPI.Entities.EntityContext;
+using MoviesAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,14 +26,20 @@ namespace MoviesAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
         public AccountsController(IConfiguration configuration,
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            ApplicationDbContext context,
+            IMapper mapper)
         {
             this._configuration = configuration;
             this._userManager = userManager;
             this._signInManager = signInManager;
+            this._context = context;
+            this._mapper = mapper;
         }
 
         [HttpPost("Create")]
@@ -39,7 +50,7 @@ namespace MoviesAPI.Controllers
 
             if (result.Succeeded)
             {
-                return BuildToken(model);
+                return await BuildToken(model);
             }
             else
             {
@@ -53,7 +64,7 @@ namespace MoviesAPI.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.EmailAddress, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return BuildToken(model);
+                return await BuildToken(model);
             }
             else
             {
@@ -61,7 +72,7 @@ namespace MoviesAPI.Controllers
             }
         }
 
-        private UserToken BuildToken(UserInfo model)
+        private async Task<UserToken> BuildToken(UserInfo model)
         {
             var claims = new List<Claim>()
             {
@@ -69,6 +80,11 @@ namespace MoviesAPI.Controllers
                 new Claim(ClaimTypes.Email, model.EmailAddress),
                 new Claim("mykey", "whatever value I want")
             };
+
+            var identityUser = await _userManager.FindByEmailAsync(model.EmailAddress);
+            var claimsDb = await _userManager.GetClaimsAsync(identityUser);
+
+            claims.AddRange(claimsDb);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -87,6 +103,49 @@ namespace MoviesAPI.Controllers
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = expiration
             };
+        }
+
+        [HttpGet("users")]
+        public async Task<ActionResult<List<UserDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
+        {
+            var queryable = _context.Users.AsQueryable();
+            queryable = queryable.OrderBy(x => x.Email);
+
+            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
+
+            var users = await queryable.Paginate(paginationDTO).ToListAsync();
+
+            return _mapper.Map<List<UserDTO>>(users);
+        }
+
+        [HttpGet("roles")]
+        public async Task<ActionResult<List<string>>> GetRoles()
+        {
+            return await _context.Roles.Select(x => x.Name).ToListAsync();
+        }
+
+        [HttpPost("AssingRole")]
+        public async Task<ActionResult> AssingRole(EditRoleDTO editRoleDTO)
+        {
+            var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
+            return NoContent();
+        }
+
+        [HttpPost("RemoveRole")]
+        public async Task<ActionResult> RemoveRole(EditRoleDTO editRoleDTO)
+        {
+            var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
+            return NoContent();
         }
     }
 }
