@@ -191,7 +191,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult> Patch(int id,    [FromBody] JsonPatchDocument<MoviePatchDTO> patchDocument)
+        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<MoviePatchDTO> patchDocument)
         {
             if (patchDocument == null)
             {

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MoviesAPI.DTOs;
 using MoviesAPI.DTOs.Movie;
 using MoviesAPI.DTOs.Person;
@@ -41,8 +42,16 @@ namespace MoviesAPI
             services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            //AutoMapper
             services.AddAutoMapper(typeof(Startup));
 
+            //CORS
+            services.AddCors(options => {
+                options.AddPolicy("AllowAPIRequestIO",
+                    builder => builder.WithOrigins("https://www.apirequest.io").WithMethods("GET", "POST").AllowAnyHeader());
+            });
+
+            //FluentValidation
             services.AddControllers().AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
@@ -53,6 +62,7 @@ namespace MoviesAPI
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            //JWT Identity
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -65,6 +75,37 @@ namespace MoviesAPI
                             Encoding.UTF8.GetBytes(Configuration["jwt:key"])),
                         ClockSkew = TimeSpan.Zero
                     });
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                //Default Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 6;
+
+                //Default Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                //Default Sign-in settings.
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                //Default User settings.
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters =
+                             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            });
+
+
+            services.AddSwaggerGen(config =>
+            {
+                config.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "MoviesAPI" });
+            });
             
             //services.AddTransient<IHostedService, MovieInTheatersService>();
             services.AddTransient<IFileStorageService, AzureStorageService>();
@@ -82,11 +123,23 @@ namespace MoviesAPI
             }
 
             //app.UseResponseCaching();
-            
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(config =>
+            {
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "MoviesAPI");
+            });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
+
+            //UseCors Every Controller
+            //app.UseCors(builder =>
+            //    builder.WithOrigins("https://www.apirequest.io").WithMethods("GET", "POST").AllowAnyHeader());
 
             app.UseAuthentication();
 

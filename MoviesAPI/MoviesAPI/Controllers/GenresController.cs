@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,7 @@ namespace MoviesAPI.Controllers
     [Route("api/genres")]
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [EnableCors(PolicyName = "AllowAPIRequestIO")]
     public class GenresController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -34,19 +36,33 @@ namespace MoviesAPI.Controllers
             this._mapper = mapper;
         }
 
-        [HttpGet] // api/genres
-        //[ResponseCache(Duration = 60)]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<List<GenreDTO>>> Get()
+        private void GenerateLinks(GenreDTO genreDTO)
         {
-            var genre = await _context.Genres.AsNoTracking().ToListAsync();
-            var genreDTOs = _mapper.Map<List<GenreDTO>>(genre);
+            genreDTO.Links.Add(new Link(Url.Link("getGenre", new { Id = genreDTO.Id }), "get-genre", method: "GET"));
+            genreDTO.Links.Add(new Link(Url.Link("putGenre", new { Id = genreDTO.Id }), "put-genre", method: "PUT"));
+            genreDTO.Links.Add(new Link(Url.Link("deleteGenre", new { Id = genreDTO.Id }), "delete-genre", method: "DELETE"));
+        }
 
-            return genreDTOs;
+        [HttpGet(Name = "getGenres")] // api/genres
+        //[ResponseCache(Duration = 60)]
+        public async Task<IActionResult> Get(bool includeHATEOAS = true)
+        {
+            var genres = await _context.Genres.AsNoTracking().ToListAsync();
+            var genresDTOs = _mapper.Map<List<GenreDTO>>(genres);
+            if (includeHATEOAS)
+            {
+                var resourceCollection = new ResourceCollection<GenreDTO>(genresDTOs);
+                genresDTOs.ForEach(genre => GenerateLinks(genre));
+                resourceCollection.Links.Add(new Link(Url.Link("getGenres", new { }), "get-genres", method: "GET"));
+                resourceCollection.Links.Add(new Link(Url.Link("createGenre", new { }), "create-genre", method: "POST"));
+
+                return Ok(resourceCollection);
+            }
+            return Ok(genresDTOs);
         }
 
         [HttpGet("{Id:int}", Name = "getGenre")]
-        public async Task<ActionResult<GenreDTO>> Get(int id)
+        public async Task<ActionResult<GenreDTO>> Get(int id, bool includeHATEOAS = true)
         {
             var genre = await _context.Genres.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -57,10 +73,15 @@ namespace MoviesAPI.Controllers
 
             var genreDTO = _mapper.Map<GenreDTO>(genre);
 
+            if (includeHATEOAS)
+            {
+                GenerateLinks(genreDTO);
+            }
+
             return genreDTO;
         }
 
-        [HttpPost]
+        [HttpPost(Name = "createGenre")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreation)
         {
@@ -77,7 +98,8 @@ namespace MoviesAPI.Controllers
             return NotFound();
         }
 
-        [HttpPut("{Id:int}")]
+        [HttpPut("{Id:int}", Name = "putGenre")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromBody] GenreCreationDTO genreCreation)
         {
             var validateResult = _validationRules.Validate(genreCreation);
@@ -93,7 +115,8 @@ namespace MoviesAPI.Controllers
             return NotFound();
         }
 
-        [HttpDelete("{Id:int}")]
+        [HttpDelete("{Id:int}", Name = "DeleteGenre")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             var exists = await _context.Genres.AnyAsync(x => x.Id == id);

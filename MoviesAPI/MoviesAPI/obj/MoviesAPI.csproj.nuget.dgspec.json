@@ -76,6 +76,10 @@
               "target": "Package",
               "version": "[1.10.9, )"
             },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            },
             "System.Linq.Dynamic.Core": {
               "target": "Package",
               "version": "[1.2.5, )"

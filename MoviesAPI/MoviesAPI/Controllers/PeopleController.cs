@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace MoviesAPI.Controllers
 {
     [Route("api/people")]
     [ApiController]
+    [EnableCors(PolicyName = "AllowAPIRequestIO")]
     public class PeopleController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -36,7 +38,7 @@ namespace MoviesAPI.Controllers
             this._fileStorage = fileStorage;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "getPeople")]
         public async Task<ActionResult<List<PersonDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
             var queryable = _context.People.AsQueryable();
@@ -144,6 +146,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpDelete("{Id:int}")]
+        [DisableCors]
         public async Task<ActionResult> Delete(int id)
         {
             var exists = await _context.People.AnyAsync(x => x.Id == id);

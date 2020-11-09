@@ -101,6 +101,10 @@ D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\git\MovieAPI\MoviesAPI\MoviesAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.csproj.CoreCompileInputs.cache
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cs
 D:\git\MovieAPI\MoviesAPI\MoviesAPI\obj\Debug\netcoreapp3.1\MoviesAPI.MvcApplicationPartsAssemblyInfo.cache
