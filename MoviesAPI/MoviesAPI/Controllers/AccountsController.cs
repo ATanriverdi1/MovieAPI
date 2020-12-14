@@ -27,18 +27,21 @@ namespace MoviesAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
 
         public AccountsController(IConfiguration configuration,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager,
             IMapper mapper)
         {
             this._configuration = configuration;
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._context = context;
+            this._roleManager = roleManager;
             this._mapper = mapper;
         }
 
@@ -50,6 +53,7 @@ namespace MoviesAPI.Controllers
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Customer");
                 return await BuildToken(model);
             }
             else
@@ -122,6 +126,24 @@ namespace MoviesAPI.Controllers
         public async Task<ActionResult<List<string>>> GetRoles()
         {
             return await _context.Roles.Select(x => x.Name).ToListAsync();
+        }
+
+        [HttpPost("createRole")]
+        public async Task<ActionResult> CreateRole([FromBody]RoleDTO roleDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _roleManager.CreateAsync(new IdentityRole(roleDTO.RoleName));
+                if (result.Succeeded)
+                {
+                    return Ok("Role Oluşturuldu");
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
+                }
+            }
+            return BadRequest(roleDTO);
         }
 
         [HttpPost("AssingRole")]

@@ -40,7 +40,7 @@ namespace MoviesAPI
             //services.AddTransient<IHostedService, WriteToFileHostedService>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                        options.UseSqlServer("Data Source = MoviesApi.Db"));
 
             //AutoMapper
             services.AddAutoMapper(typeof(Startup));

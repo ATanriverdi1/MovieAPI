@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesAPI", "MoviesAPI\MoviesAPI.csproj", "{7B3A9C3C-95C9-4B28-AE32-13929937CCA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesAPI", "MoviesAPI\MoviesAPI.csproj", "{7B3A9C3C-95C9-4B28-AE32-13929937CCA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{E7E113F6-C957-4C4F-8C77-B194797AEB76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesApi.Domain", "MoviesApi.Domain\MoviesApi.Domain.csproj", "{E82B50F7-435B-4CD9-8607-3AE5950F3022}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D769B0B5-F737-402C-8AA2-799ADB5B9C61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesApi.Infrastructure", "MoviesApi.Infrastructure\MoviesApi.Infrastructure.csproj", "{C4F1DD97-DAC4-4D7E-8AB7-23415ED8DD7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,21 @@ Global
 		{7B3A9C3C-95C9-4B28-AE32-13929937CCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B3A9C3C-95C9-4B28-AE32-13929937CCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B3A9C3C-95C9-4B28-AE32-13929937CCA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E82B50F7-435B-4CD9-8607-3AE5950F3022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E82B50F7-435B-4CD9-8607-3AE5950F3022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E82B50F7-435B-4CD9-8607-3AE5950F3022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E82B50F7-435B-4CD9-8607-3AE5950F3022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F1DD97-DAC4-4D7E-8AB7-23415ED8DD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F1DD97-DAC4-4D7E-8AB7-23415ED8DD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F1DD97-DAC4-4D7E-8AB7-23415ED8DD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F1DD97-DAC4-4D7E-8AB7-23415ED8DD7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E82B50F7-435B-4CD9-8607-3AE5950F3022} = {E7E113F6-C957-4C4F-8C77-B194797AEB76}
+		{C4F1DD97-DAC4-4D7E-8AB7-23415ED8DD7C} = {D769B0B5-F737-402C-8AA2-799ADB5B9C61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C373FF14-3861-48C7-BD75-682D9BA46AF1}

@@ -1,0 +1,9 @@
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\bin\Debug\netcoreapp3.1\MoviesApi.Domain.deps.json
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\bin\Debug\netcoreapp3.1\MoviesApi.Domain.dll
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\bin\Debug\netcoreapp3.1\MoviesApi.Domain.pdb
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\obj\Debug\netcoreapp3.1\MoviesApi.Domain.csprojAssemblyReference.cache
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\obj\Debug\netcoreapp3.1\MoviesApi.Domain.AssemblyInfoInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\obj\Debug\netcoreapp3.1\MoviesApi.Domain.AssemblyInfo.cs
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\obj\Debug\netcoreapp3.1\MoviesApi.Domain.csproj.CoreCompileInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\obj\Debug\netcoreapp3.1\MoviesApi.Domain.dll
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Domain\obj\Debug\netcoreapp3.1\MoviesApi.Domain.pdb

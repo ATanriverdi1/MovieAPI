@@ -28,5 +28,9 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MoviesApi.Infrastructure\MoviesApi.Infrastructure.csproj" />
+  </ItemGroup>
+
 
 </Project>

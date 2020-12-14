@@ -1,0 +1,15 @@
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Domain.dll
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.csprojAssemblyReference.cache
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.AssemblyInfoInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.AssemblyInfo.cs
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Infrastructure.deps.json
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Infrastructure.runtimeconfig.json
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Infrastructure.runtimeconfig.dev.json
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Infrastructure.dll
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Infrastructure.pdb
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\bin\Debug\netcoreapp3.1\MoviesApi.Domain.pdb
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.csproj.CoreCompileInputs.cache
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.csproj.CopyComplete
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.dll
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.pdb
+D:\git\MovieAPI\MoviesAPI\MoviesApi.Infrastructure\obj\Debug\netcoreapp3.1\MoviesApi.Infrastructure.genruntimeconfig.cache

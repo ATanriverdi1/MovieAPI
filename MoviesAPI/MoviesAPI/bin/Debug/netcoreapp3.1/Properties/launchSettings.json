@@ -32,6 +32,6 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/genres",
       "publishAllPorts": true,
       "useSSL": true
+      }
     }
-  }
 }
